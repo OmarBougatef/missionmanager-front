@@ -1,0 +1,31 @@
+<div class="full-page-container">
+  <div class="form-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+      <h2 class="form-title">Connexion</h2>
+
+      <!-- CIN Input -->
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Identifiant (CIN)</mat-label>
+        <input matInput formControlName="cin" type="text" required>
+        <mat-error *ngIf="loginForm.get('cin')?.invalid && loginForm.get('cin')?.touched">
+          Le CIN est requis et doit contenir 8 chiffres.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email Input -->
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required>
+        <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          L'adresse email est requise et doit être valide.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Buttons -->
+      <div class="button-group">
+        <button mat-raised-button class="green-button" type="submit">Se connecter</button>
+        <button mat-raised-button class="red-button" type="button" (click)="resetForm()">Réinitialiser</button>
+      </div>
+    </form>
+  </div>
+</div>

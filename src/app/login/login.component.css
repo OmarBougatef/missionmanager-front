@@ -1,0 +1,59 @@
+/* Centrer le formulaire sur la page */
+.full-page-container {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    height: 100vh; /* Hauteur totale de la fenêtre */
+    background-color: #f5f5f5; /* Couleur d'arrière-plan légère */
+    margin: 0; /* Supprime les marges */
+}
+
+/* Style du cadre du formulaire */
+.form-container {
+    background: white; /* Fond blanc pour le cadre */
+    padding: 32px; /* Espacement interne */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre pour donner un effet de profondeur */
+    width: 100%;
+    max-width: 400px; /* Limite la largeur à 400px */
+}
+
+/* Titre du formulaire */
+.form-title {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+}
+
+/* Champs et boutons avec des espaces cohérents */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espace entre les champs */
+}
+
+.flex-item {
+    flex: 1; /* Permet aux éléments de prendre une largeur égale */
+  }
+.button-group {
+    display: flex;
+    justify-content: center; /* Centre les boutons */
+    gap: 15px; /* Espace entre les boutons */
+}
+
+
+.green-button {
+    background-color: green;
+    color: white;
+    width: 100%; /* Boutons pleine largeur */
+    padding: 10px;
+}
+
+.red-button {
+    background-color: red;
+    color: white;
+    width: 100%; /* Boutons pleine largeur */
+    padding: 10px;
+}

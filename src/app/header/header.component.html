@@ -1,0 +1,74 @@
+<mat-toolbar class="custom-toolbar">
+  <div class="container-fluid grid-container">
+    <!-- Logo et Titre -->
+    <div class="logo-title">
+      <a routerLink="/">
+        <img src="Ulysse.png" width="50" height="50" alt="Back to Home" loading="lazy" />
+      </a>
+      <span class="title">Ulysse'Travel</span>
+    </div>
+
+    <!-- Menu Boutons -->
+    <div class="menu-buttons">
+      <button mat-button [matMenuTriggerFor]="usersMenu">Équipe</button>
+      <button mat-button [matMenuTriggerFor]="missionsMenu">Déplacements</button>
+      <button mat-button [matMenuTriggerFor]="LiquidationMenu">Liquidations</button>
+    </div>
+
+    <!-- Menu Utilisateurs -->
+    <mat-menu #usersMenu="matMenu">
+      <button mat-menu-item routerLink="/users/list">
+        <mat-icon>list</mat-icon>
+        <span>Liste des collaborateurs</span>
+      </button>
+      <button mat-menu-item routerLink="/users/add">
+        <mat-icon>person_add</mat-icon>
+        <span>Ajouter un nouveau collaborateur</span>
+      </button>
+    </mat-menu>
+
+    <!-- Menu Déplacements -->
+    <mat-menu #missionsMenu="matMenu">
+      <button mat-menu-item routerLink="/missions/list">
+        <mat-icon>list_alt</mat-icon>
+        <span>Liste des déplacements</span>
+      </button>
+      <button mat-menu-item routerLink="/missions/add">
+        <mat-icon>add</mat-icon>
+        <span>Ajouter un nouveau déplacement</span>
+      </button>
+    </mat-menu>
+    <mat-menu #LiquidationMenu="matMenu"></mat-menu>
+
+
+  </div>
+
+      <!-- Profile Section -->
+      <div class="profile-container" *ngIf="userData">
+        <!-- Profile Picture with Dropdown Trigger -->
+        <img
+          [src]="profilePicture"
+          alt="Profile"
+          class="profile-picture"
+          [matMenuTriggerFor]="profileMenu"
+        />
+  
+        <!-- User Info -->
+        <div class="user-info">
+          <span class="user-email">{{ userData.email }}</span>
+          <span class="user-role">Administrateur</span>
+        </div>
+  
+        <!-- Dropdown Menu -->
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item routerLink="/profile">
+            <mat-icon>account_circle</mat-icon>
+            <span>Voir ma fiche</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Déconnexion</span>
+          </button>
+        </mat-menu>
+      </div>
+</mat-toolbar>

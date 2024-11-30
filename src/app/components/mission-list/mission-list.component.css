@@ -1,0 +1,67 @@
+
+/* Styles généraux pour le conteneur */
+.container {
+    max-width: 1200px; /* Largeur maximum pour le conteneur */
+    margin: 20px auto; /* Centrer le conteneur */
+    padding: 20px; /* Ajout de l'espace autour du conteneur */
+    border-radius: 10px; /* Coins arrondis */
+  }
+  
+  /* Titre de la liste des utilisateurs */
+  h2 {
+    color: #343a40; /* Couleur du texte du titre */
+    margin-bottom: 20px; /* Marge inférieure pour espacer */
+  }
+  
+  /* Styles pour le tableau */
+  table {
+    width: 100%; /* Prendre toute la largeur */
+    border-collapse: collapse; /* Supprimer les espaces entre les cellules */
+  }
+  
+  /* En-tête du tableau */
+  th {
+    background-color: #007bff; /* Couleur de fond bleue */
+    color: rgb(0, 0, 0); /* Couleur du texte blanche */
+    font-weight: bold; /* Gras pour le texte */
+    text-align: center; /* Centrer le texte */
+    padding: 12px; /* Espace intérieur */
+    border-radius: 10px; /* Coins arrondis */
+  }
+  
+  /* Cellules du tableau */
+  td {
+    text-align: center; /* Centrer le texte */
+    padding: 12px; /* Espace intérieur */
+    border-bottom: 1px solid #dee2e6; /* Ligne de séparation */
+    transition: background-color 0.3s; /* Transition pour l'animation */
+  }
+  
+  
+  /* Styles pour les boutons d'action */
+  button.mat-button {
+    background-color: black; /* Couleur de fond noire */
+    color: white; /* Couleur du texte blanche */
+    border-radius: 5px; /* Coins arrondis pour les boutons */
+    padding: 8px 16px; /* Espace intérieur pour les boutons */
+    transition: background-color 0.3s, transform 0.2s; /* Transition pour l'animation */
+    font-weight: bold; /* Met le texte en gras */
+  }
+  
+  /* Survol des boutons */
+  button.mat-button:hover {
+    background-color: #333; /* Couleur de survol plus foncée */
+    transform: translateY(-2px); /* Légère élévation au survol */
+  }
+  
+  /* Styles pour le paginator */
+  mat-paginator {
+    margin-top: 20px; /* Espacement supérieur */
+  }
+  
+  /* Style pour les cellules d'actions */
+  .mat-cell > button {
+    margin: 0 5px; /* Espacement entre les boutons */
+  }
+  
+  

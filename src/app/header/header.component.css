@@ -1,0 +1,133 @@
+.grid-container {
+  display: flex; /* Changement à flex pour un meilleur alignement */
+  justify-content: space-between; /* Espace entre logo et boutons */
+  align-items: center; /* Aligne verticalement tous les éléments au centre */
+  padding: 0 16px; /* Ajoute du padding à gauche et à droite */
+}
+
+.custom-toolbar {
+  background-color: black !important; /* Couleur de fond noire */
+  color: white; /* Couleur de texte blanche */
+}
+
+.menu-buttons {
+  margin-left: 60px;
+  display: flex; /* Utilise flex pour aligner les boutons horizontalement */
+  gap: 16px; /* Espace entre les boutons */
+}
+
+.menu-buttons button {
+  color: white !important; /* Couleur des boutons en blanc */
+}
+
+.logo-title {
+  display: flex;
+  align-items: center; /* Aligne verticalement le logo et le titre */
+}
+
+.title {
+  margin-bottom: 4px;
+  font-size: 24px; /* Taille de la police pour le titre */
+  color: white; /* Couleur du texte */
+  margin-left: 8px; /* Marge à gauche du titre */
+}
+.menu-buttons button {
+  color: white !important; /* Couleur des boutons en blanc */
+  transition: background-color 0.3s, color 0.3s; /* Transition douce pour l'effet de survol */
+}
+
+.menu-buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Couleur de fond au survol */
+  color: yellow; /* Couleur du texte au survol */
+}
+/* Ensure the profile container is aligned to the far right */
+.profile-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Push the profile container to the far right */
+  gap: 8px; /* Space between profile picture, email, and other elements */
+}
+
+/* Style for the dropdown arrow */
+.menu-arrow {
+  color: black; /* Black color for the dropdown arrow */
+  min-width: 0; /* Remove unnecessary button padding */
+  padding: 0;
+}
+
+/* Style for the profile picture */
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Circular profile picture */
+  object-fit: cover;
+  cursor: pointer; /* Indicate it's clickable */
+}
+
+/* User Info container */
+.user-info {
+  display: flex;
+  flex-direction: column; /* Stack email above role */
+  align-items: flex-start; /* Align text to the left */
+  font-size: 12px; /* Adjust font size for smaller text */
+  line-height: 1.2; /* Reduce the space between lines for email and role */
+}
+
+/* Email styling */
+.user-email {
+  font-size: 14px; /* Slightly larger for emphasis */
+  font-weight: bold; /* Make it bold for visibility */
+  color: white;
+}
+
+/* Role styling */
+.user-role {
+  font-size: 12px;
+  color: gray; /* Gray color for less emphasis */
+  margin-top: 2px; /* Reduce the space between the email and the role */
+}
+
+/* Adjust the toolbar layout for consistent alignment */
+.grid-container {
+  display: flex; /* Flex for layout alignment */
+  justify-content: space-between; /* Space between logo and profile container */
+  align-items: center; /* Align vertically */
+  padding: 0 16px; /* Add padding to left and right */
+}
+
+.custom-toolbar {
+  background-color: black !important; /* Background color black */
+  color: white; /* Text color white */
+}
+
+.menu-buttons {
+  margin-left: 60px;
+  display: flex; /* Align buttons horizontally */
+  gap: 16px; /* Space between buttons */
+}
+
+.menu-buttons button {
+  color: white !important; /* Buttons in white */
+}
+
+.logo-title {
+  display: flex;
+  align-items: center; /* Align logo and title vertically */
+}
+
+.title {
+  margin-bottom: 4px;
+  font-size: 24px; /* Title font size */
+  color: white; /* Title color */
+  margin-left: 8px; /* Space between logo and title */
+}
+
+.menu-buttons button {
+  color: white !important; /* Button text in white */
+  transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+}
+
+.menu-buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Background color on hover */
+  color: yellow; /* Text color on hover */
+}

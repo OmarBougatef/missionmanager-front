@@ -1,0 +1,93 @@
+<div class="form-container">
+  <form [formGroup]="missionForm" (ngSubmit)="onSubmit()" class="mission-form">
+    <h2 class="form-title">{{ isUpdate ? 'Modifier une mission' : 'Créer une nouvelle mission' }}</h2>
+
+    <!-- Ligne pour le Titre et Destination -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Titre</mat-label>
+        <input matInput formControlName="title" required>
+        <mat-error *ngIf="missionForm.get('title')?.invalid && missionForm.get('title')?.touched">
+          Le titre est requis
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Destination</mat-label>
+        <input matInput formControlName="destination" required>
+        <mat-error *ngIf="missionForm.get('destination')?.invalid && missionForm.get('destination')?.touched">
+          La destination est requise
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Ligne pour Date de début et Date de fin -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Date de début</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startDate" required>
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+        <mat-error *ngIf="missionForm.get('startDate')?.invalid && missionForm.get('startDate')?.touched">
+          La date de début est requise
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Date de fin</mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate" required>
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+        <mat-error *ngIf="missionForm.get('endDate')?.invalid && missionForm.get('endDate')?.touched">
+          La date de fin est requise
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Ligne pour le Budget et le Statut -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Budget</mat-label>
+        <input matInput formControlName="budget" type="number" required>
+        <mat-error *ngIf="missionForm.get('budget')?.invalid && missionForm.get('budget')?.touched">
+          Le budget est requis
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Statut</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option value="EN_COURS">En cours</mat-option>
+          <mat-option value="TERMINEE">Complétée</mat-option>
+          <mat-option value="ANNULEE">Annulée</mat-option>
+          <mat-option value="EN_ATTENTE">En Attente</mat-option>
+        </mat-select>
+        <mat-error *ngIf="missionForm.get('status')?.invalid && missionForm.get('status')?.touched">
+          Le statut est requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Ligne pour l'utilisateur affecté -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Affecté à</mat-label>
+        <mat-select formControlName="userInfoCin" required>
+          <mat-option *ngFor="let user of users" [value]="user.cin">
+            {{ user.firstName }} {{ user.lastName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="missionForm.get('userInfoCin')?.invalid && missionForm.get('userInfoCin')?.touched">
+          L'utilisateur est requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Boutons de soumission -->
+    <div class="button-group">
+      <button mat-raised-button class="green-button" type="submit">{{ isUpdate ? 'Modifier' : 'Créer' }}</button>
+      <button mat-raised-button class="red-button" (click)="resetForm()">Réinitialiser</button>
+      <button mat-raised-button color="light" (click)="cancel()">Annuler</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,41 @@
+.form-container {
+    margin-left: 16px; /* Adjust as needed */
+    margin-right: 16px; /* Adjust as needed */
+}
+.form-title {
+    margin-top: 20px;
+}
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espace entre les éléments */
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between; /* Espace entre les champs */
+    gap: 16px; /* Espace entre les éléments */
+  }
+  
+  .flex-item {
+    flex: 1; /* Permet aux éléments de prendre une largeur égale */
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espace de 15px entre les boutons */
+    margin-top: 16px; /* Espace au-dessus des boutons */
+}
+
+.green-button {
+    background-color: green; /* Couleur de fond verte */
+    color: white; /* Couleur du texte blanche */
+}
+
+.red-button {
+    background-color: red; /* Couleur de fond rouge */
+    color: white; /* Couleur du texte blanche */
+}
+
+  

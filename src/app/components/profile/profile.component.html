@@ -1,0 +1,80 @@
+<div class="profile-container">
+    <!-- Profile Picture -->
+    <div class="profile-picture-container">
+      <img [src]="profilePicture || 'assets/default-profile.png'" alt="Profile Picture" class="profile-picture" />
+      <button class="edit-photo-btn" (click)="onEditPhoto()">Modifier la photo</button>
+    </div>
+  
+    <!-- Title -->
+    <h2>Mon Profil</h2>
+  
+    <!-- Profile Details -->
+    <form *ngIf="user" [formGroup]="profileForm" (ngSubmit)="onSaveChanges()" class="profile-details">
+      <div class="profile-item">
+        <label for="cin"><strong>CIN:</strong></label>
+        <input id="cin" formControlName="cin" type="text" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="email"><strong>Email:</strong></label>
+        <input id="email" formControlName="email" type="email" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="lastName"><strong>Nom:</strong></label>
+        <input id="lastName" formControlName="lastName" type="text" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="firstName"><strong>Prénom:</strong></label>
+        <input id="firstName" formControlName="firstName" type="text" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="phoneNumber"><strong>Téléphone:</strong></label>
+        <input id="phoneNumber" formControlName="phoneNumber" type="text" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="address"><strong>Adresse:</strong></label>
+        <input id="address" formControlName="address" type="text" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="birthDate"><strong>Date de naissance:</strong></label>
+        <input id="birthDate" formControlName="birthDate" type="date" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="gender"><strong>Genre:</strong></label>
+        <select id="gender" formControlName="gender">
+          <option value="Male">Homme</option>
+          <option value="Female">Femme</option>
+        </select>
+      </div>
+  
+      <div class="profile-item">
+        <label for="nationality"><strong>Nationalité:</strong></label>
+        <input id="nationality" formControlName="nationality" type="text" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="passportNumber"><strong>Numéro de Passeport:</strong></label>
+        <input id="passportNumber" formControlName="passportNumber" type="text" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="passportIssueDate"><strong>Date d'émission:</strong></label>
+        <input id="passportIssueDate" formControlName="passportIssueDate" type="date" />
+      </div>
+  
+      <div class="profile-item">
+        <label for="passportExpiryDate"><strong>Date d'expiration:</strong></label>
+        <input id="passportExpiryDate" formControlName="passportExpiryDate" type="date" />
+      </div>
+  
+      <!-- Save Changes Button -->
+      <button type="submit" class="save-button">Enregistrer les modifications</button>
+    </form>
+  </div>
+  
