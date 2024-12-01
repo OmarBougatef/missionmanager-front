@@ -7,13 +7,17 @@ import { MissionFormComponent } from './components/mission-form/mission-form.com
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component'; // Import the LoginComponent
 import { ProfileComponent } from './components/profile/profile.component';
+import { LiquidationListComponent } from './components/liquidation-list/liquidation-list.component';
+import { LiquidationFormComponent } from './components/liquidation-form/liquidation-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Route for login page
   { path: 'users/list', component: UserListComponent },
   { path: 'missions/list', component: MissionListComponent },
+  { path: 'liquidations/list', component: LiquidationListComponent },
   { path: 'users/add', component: UserFormComponent },
   { path: 'missions/add', component: MissionFormComponent },
+  { path: 'liquidations/add', component: LiquidationFormComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomePageComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Set login as the default page

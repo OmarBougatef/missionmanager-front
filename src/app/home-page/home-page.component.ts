@@ -46,7 +46,9 @@ export class HomePageComponent {
       description: 'Consultez les liquidations de votre équipe.',
       icon: 'attach_money',
       link: '/liquidations/list',
-      linkText: 'Consultez la liste des liquidations'
+      linkText: 'Consultez la liste des liquidations',
+      link2: '/liquidations/add',
+      linkText2: 'Faire une liquidation'
     }
   ];
 

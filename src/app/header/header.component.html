@@ -2,7 +2,7 @@
   <div class="container-fluid grid-container">
     <!-- Logo et Titre -->
     <div class="logo-title">
-      <a routerLink="/">
+      <a routerLink="/home">
         <img src="Ulysse.png" width="50" height="50" alt="Back to Home" loading="lazy" />
       </a>
       <span class="title">Ulysse'Travel</span>
@@ -38,7 +38,18 @@
         <span>Ajouter un nouveau déplacement</span>
       </button>
     </mat-menu>
-    <mat-menu #LiquidationMenu="matMenu"></mat-menu>
+
+    <!-- Menu Liquidations -->
+    <mat-menu #LiquidationMenu="matMenu">
+      <button mat-menu-item routerLink="/liquidations/list">
+        <mat-icon>list_alt</mat-icon>
+        <span>Liste des liquidations</span>
+      </button>
+      <button mat-menu-item routerLink="/liquidations/add">
+        <mat-icon>add</mat-icon>
+        <span>Faire une liquidation</span>
+      </button>
+    </mat-menu>
 
 
   </div>
@@ -56,7 +67,7 @@
         <!-- User Info -->
         <div class="user-info">
           <span class="user-email">{{ userData.email }}</span>
-          <span class="user-role">Administrateur</span>
+          <span class="user-role">{{ userData.role }}</span>
         </div>
   
         <!-- Dropdown Menu -->

@@ -60,6 +60,7 @@ export class LoginComponent {
         address: '123 Main St',
         birthDate: '1990-01-01',
         gender: 'Male',
+        role: 'Adminstrateur',
         nationality: 'Tunisian',
         passportNumber: 'AB1234567',
         passportIssueDate: '2020-01-01',

@@ -1,0 +1,63 @@
+<div class="container mt-4">
+    <h2>Liste des Liquidations</h2>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let liquidation"> {{ liquidation.id }} </td>
+      </ng-container>
+  
+      <!-- User Name Column -->
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef> Nom de l'utilisateur </th>
+        <td mat-cell *matCellDef="let liquidation">
+          {{ liquidation.user.firstName }} {{ liquidation.user.lastName }}
+        </td>
+      </ng-container>
+  
+      <!-- Mission ID Column -->
+      <ng-container matColumnDef="missionId">
+        <th mat-header-cell *matHeaderCellDef> ID de la Mission </th>
+        <td mat-cell *matCellDef="let liquidation"> {{ liquidation.mission.id }} </td>
+      </ng-container>
+  
+      <!-- Budget Column -->
+      <ng-container matColumnDef="budget">
+        <th mat-header-cell *matHeaderCellDef> Budget </th>
+        <td mat-cell *matCellDef="let liquidation"> {{ liquidation.mission.budget | currency }} </td>
+      </ng-container>
+  
+      <!-- Total Amount Column -->
+      <ng-container matColumnDef="totalAmount">
+        <th mat-header-cell *matHeaderCellDef> Montant total </th>
+        <td mat-cell *matCellDef="let liquidation"> {{ liquidation.totalAmount | currency }} </td>
+      </ng-container>
+  
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Statut </th>
+        <td mat-cell *matCellDef="let liquidation" [ngClass]="{
+          'validated': liquidation.status === 'VALIDATED',
+          'pending': liquidation.status === 'PENDING',
+          'refused': liquidation.status === 'REFUSED'
+        }">
+          {{ liquidation.status }}
+        </td>
+      </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let liquidation">
+          <button mat-button color="primary" (click)="editLiquidation(liquidation.id)">Modifier</button>
+          <button mat-button color="accent" (click)="validateLiquidation(liquidation.id)">Valider</button>
+          <button mat-button color="warn" (click)="refuseLiquidation(liquidation.id)">Refuser</button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  
