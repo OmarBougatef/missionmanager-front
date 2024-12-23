@@ -6,11 +6,31 @@
       <mat-card-content>
         <p class="fw-bold">{{ card.description }}</p>
       </mat-card-content>
+
+      <!-- First Link -->
       <mat-card-actions>
-        <a mat-button color="primary" [routerLink]="card.link">{{ card.linkText }}</a>
+        <a
+          mat-button
+          color="primary"
+          [routerLink]="card.link"
+          [class.disabled]="!hasAccess(card.rolesAllowed)"
+          [attr.aria-disabled]="!hasAccess(card.rolesAllowed)"
+        >
+          {{ card.linkText }}
+        </a>
       </mat-card-actions>
+
+      <!-- Second Link -->
       <mat-card-actions>
-        <a mat-button color="primary" [routerLink]="card.link2">{{ card.linkText2 }}</a>
+        <a
+          mat-button
+          color="primary"
+          [routerLink]="card.link2"
+          [class.disabled]="!hasAccess(card.rolesAllowed)"
+          [attr.aria-disabled]="!hasAccess(card.rolesAllowed)"
+        >
+          {{ card.linkText2 }}
+        </a>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>

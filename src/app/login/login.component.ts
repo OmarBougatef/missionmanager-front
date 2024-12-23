@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../services/auth.service';
-import { User } from '../models/user';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-login',
@@ -29,8 +27,7 @@ import { User } from '../models/user';
     MatNativeDateModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatGridListModule
-  ],
+    MatGridListModule,  ],
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -38,7 +35,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {
     this.loginForm = this.fb.group({
       cin: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
@@ -50,31 +48,27 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const { cin, email } = this.loginForm.value;
 
-      // Create a mock user
-      const user: User = {
-        cin,
-        email,
-        firstName: 'John',
-        lastName: 'Doe',
-        phoneNumber: '123456789',
-        address: '123 Main St',
-        birthDate: '1990-01-01',
-        gender: 'Male',
-        role: 'Adminstrateur',
-        nationality: 'Tunisian',
-        passportNumber: 'AB1234567',
-        passportIssueDate: '2020-01-01',
-        passportExpiryDate: '2030-01-01',
-      };
-
-      this.authService.setUser(user);
-      this.router.navigate(['/home']);
+      this.authService.login(cin, email).subscribe(
+        () => {
+          // Navigate to the home page after successful login
+          this.router.navigate(['/home']);
+        },
+        () => {
+          this.snackBar.open('Échec de la connexion : Veuillez vérifier vos informations.', 'Fermer', {
+            duration: 3000,
+            panelClass: ['error-snackbar'],
+          });
+        }
+      );
     } else {
-      console.error('Formulaire invalide.');
+      this.snackBar.open('Formulaire invalide : Veuillez corriger les erreurs.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+      });
     }
   }
 
   resetForm() {
-    this.loginForm.reset(); // Réinitialisation du formulaire
+    this.loginForm.reset(); // Reset the form
   }
 }

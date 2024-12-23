@@ -1,1 +1,115 @@
-<p>liquidation-form works!</p>
+<div class="form-container">
+  <form [formGroup]="liquidationForm" (ngSubmit)="onSubmit()" class="liquidation-form">
+    <h2 class="form-title">{{ isUpdate ? 'Modifier une liquidation' : 'Créer une nouvelle liquidation' }}</h2>
+
+    <!-- Ligne pour Mission et Utilisateur -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Mission</mat-label>
+        <mat-select formControlName="missionId" required>
+          <mat-option *ngFor="let mission of missions" [value]="mission.id">
+            {{ mission.title }} ({{ mission.destination }})
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="liquidationForm.get('missionId')?.invalid && liquidationForm.get('missionId')?.touched">
+          La mission est requise
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Utilisateur</mat-label>
+        <mat-select formControlName="userCin" required>
+          <mat-option *ngFor="let user of users" [value]="user.cin">
+            {{ user.firstName }} {{ user.lastName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="liquidationForm.get('userCin')?.invalid && liquidationForm.get('userCin')?.touched">
+          L'utilisateur est requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Ligne pour coûts avec upload de photo -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Coût du train</mat-label>
+        <input matInput formControlName="trainCost" type="number" required>
+        <input type="file" (change)="onFileUpload($event, 'trainCost')" accept="image/*">
+        <mat-error *ngIf="liquidationForm.get('trainCost')?.invalid && liquidationForm.get('trainCost')?.touched">
+          Le coût est requis
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Coût du bus</mat-label>
+        <input matInput formControlName="busCost" type="number" required>
+        <input type="file" (change)="onFileUpload($event, 'busCost')" accept="image/*">
+        <mat-error *ngIf="liquidationForm.get('busCost')?.invalid && liquidationForm.get('busCost')?.touched">
+          Le coût est requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Coût des taxis</mat-label>
+        <input matInput formControlName="taxiCost" type="number" required>
+        <input type="file" (change)="onFileUpload($event, 'taxiCost')" accept="image/*">
+        <mat-error *ngIf="liquidationForm.get('taxiCost')?.invalid && liquidationForm.get('taxiCost')?.touched">
+          Le coût est requis
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Coût des hôtels</mat-label>
+        <input matInput formControlName="hotelCost" type="number" required>
+        <input type="file" (change)="onFileUpload($event, 'hotelCost')" accept="image/*">
+        <mat-error *ngIf="liquidationForm.get('hotelCost')?.invalid && liquidationForm.get('hotelCost')?.touched">
+          Le coût est requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Ligne pour autres coûts -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Coût des forfaits internet</mat-label>
+        <input matInput formControlName="internetPackageCost" type="number" required>
+        <input type="file" (change)="onFileUpload($event, 'internetPackageCost')" accept="image/*">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Coût des cartes SIM</mat-label>
+        <input matInput formControlName="simCardCost" type="number" required>
+        <input type="file" (change)="onFileUpload($event, 'simCardCost')" accept="image/*">
+      </mat-form-field>
+    </div>
+
+    <!-- Ligne pour remarques et statut -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Remarques</mat-label>
+        <textarea matInput formControlName="remarks"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Statut</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option value="PENDING">En attente</mat-option>
+          <mat-option value="VALIDATED">Validée</mat-option>
+          <mat-option value="REFUSED">Refusée</mat-option>
+        </mat-select>
+        <mat-error *ngIf="liquidationForm.get('status')?.invalid && liquidationForm.get('status')?.touched">
+          Le statut est requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Boutons -->
+    <div class="button-group">
+      <button mat-raised-button class="green-button" type="submit">{{ isUpdate ? 'Modifier' : 'Créer' }}</button>
+      <button mat-raised-button class="red-button" (click)="resetForm()">Réinitialiser</button>
+      <button mat-raised-button color="light" (click)="cancel()">Annuler</button>
+    </div>
+  </form>
+</div>

@@ -43,3 +43,8 @@ mat-card-actions {
     grid-template-columns: repeat(1, 1fr);
   }
 }
+a.disabled {
+  pointer-events: none;
+  color: gray;
+  text-decoration: none;
+}

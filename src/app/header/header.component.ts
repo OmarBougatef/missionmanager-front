@@ -5,11 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../models/user';
-
-
 
 @Component({
   selector: 'app-header',
@@ -30,16 +27,20 @@ export class HeaderComponent implements OnInit {
   userData: User | null = null;
   profilePicture: string = 'profile.png';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    // Retrieve user data from AuthService
-    this.userData = this.authService.getUser();
+    // Retrieve user data from localStorage
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      this.userData = JSON.parse(storedUserData);
+    }
   }
 
   // Logout method
   logout() {
-    this.authService.clearUser();
+    // Clear user data from localStorage
+    localStorage.removeItem('userData');
     this.router.navigate(['/']); // Redirect to login or home
   }
 }
