@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-liquidation-form',
@@ -19,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrls: ['./liquidation-form.component.css'],
   standalone: true,
   imports: [
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -41,11 +43,11 @@ export class LiquidationFormComponent implements OnInit {
     private userService: UserService,
     private missionService: MissionService,
     private router: Router,
-    private ocrService: OcrService  // Injecting the OcrService
+    private ocrService: OcrService // Injecting the OcrService
   ) {
     this.liquidationForm = this.fb.group({
       missionId: ['', Validators.required],
-      userCin: ['', Validators.required],
+      userId: ['', Validators.required],
       trainCost: [0, [Validators.required, Validators.min(0)]],
       busCost: [0, [Validators.required, Validators.min(0)]],
       taxiCost: [0, [Validators.required, Validators.min(0)]],
@@ -89,21 +91,27 @@ export class LiquidationFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.liquidationForm.valid) {
-      const liquidationData: Liquidation = this.liquidationForm.value;
-
+      const liquidationData: Liquidation = this.liquidationForm.value; // Get the form data
+  
       if (this.isUpdate && this.liquidationId) {
+        // If it's an update, update the entire liquidation object
         this.liquidationService
-          .updateLiquidation({ ...liquidationData, id: this.liquidationId })
-          .subscribe(() => this.router.navigate(['/liquidations/list']));
+          .updateLiquidation(this.liquidationId, liquidationData) // Pass the whole liquidation data to update
+          .subscribe(() => {
+            this.router.navigate(['/liquidations/list']);
+          });
       } else {
+        // If it's not an update, create a new liquidation
         this.liquidationService
-          .addLiquidation(liquidationData)
-          .subscribe(() => this.router.navigate(['/liquidations/list']));
+          .createLiquidation(liquidationData) // Use create method for new liquidation
+          .subscribe(() => {
+            this.router.navigate(['/liquidations/list']);
+          });
       }
     }
   }
+  
 
-  // Modified onFileUpload to handle OCR service
   onFileUpload(event: Event, costType: string): void {
     const input = event.target as HTMLInputElement;
     if (input?.files?.[0]) {
@@ -112,13 +120,15 @@ export class LiquidationFormComponent implements OnInit {
       // Call the OCR service to process the file
       this.ocrService.processImage(file, costType).subscribe(
         (response) => {
-          // Assuming the OCR service returns the extracted amount
-          const extractedCost = response.amountCost;  // Adjust according to the OCR response
+          // Assuming the OCR service returns a response with costType and amount
+          const extractedCost = parseFloat(response.amount); // Ensure the amount is a number
 
-          // Update the relevant cost field in the form
-          this.liquidationForm.patchValue({
-            [costType]: extractedCost,
-          });
+          // Update the relevant cost field in the form dynamically
+          if (!isNaN(extractedCost)) {
+            this.liquidationForm.patchValue({
+              [response.costType]: extractedCost,
+            });
+          }
         },
         (error) => {
           console.error('OCR processing error:', error);

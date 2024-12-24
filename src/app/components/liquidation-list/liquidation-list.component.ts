@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Liquidation, LiquidationStatus } from '../../models/liquidation';
 import { LiquidationService } from '../../services/liquidation.service';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTableDataSource } from '@angular/material/table'; // Assurez-vous d'importer MatTableDataSource
+import { MatTableDataSource } from '@angular/material/table'; // Import MatTableDataSource
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-liquidation-list',
@@ -29,35 +30,44 @@ export class LiquidationListComponent implements OnInit {
     'id', 'userName', 'missionId', 'budget', 'totalAmount', 'status', 'actions'
   ];
 
-  dataSource = new MatTableDataSource<Liquidation>; // Ajout de la propriété dataSource
+  dataSource = new MatTableDataSource<Liquidation>(); // Initialize dataSource
 
-  constructor(private liquidationService: LiquidationService) {}
+  constructor(private liquidationService: LiquidationService, private router: Router) {}
 
   ngOnInit() {
-    // Récupérer les liquidations depuis le service
-    this.liquidationService.getLiquidations().subscribe((data) => {
+    // Fetch liquidations for the current authenticated user or you can call specific methods here
+    this.fetchLiquidations();
+  }
+
+  // Method to fetch liquidations for the current authenticated user
+  fetchLiquidations() {
+    this.liquidationService.getAllLiquidations().subscribe((data) => {
       this.liquidations = data;
-      this.dataSource = new MatTableDataSource(this.liquidations); // Initialiser dataSource avec les liquidations
+      this.dataSource.data = this.liquidations; // Set the data for MatTableDataSource
     });
   }
 
-  // Méthode pour éditer la liquidation (à compléter selon l'application)
-  editLiquidation(id: number) {
-    // Implémenter la logique d'édition ici
-    console.log(`Éditer la liquidation avec ID: ${id}`);
+  // Method for editing a liquidation (implement according to your app's requirements)
+  editLiquidation(liquidation: Liquidation) {
+    this.router.navigate(['/liquidations/add'], { state: { liquidation } });
+    console.log(`Edit liquidation with ID: ${liquidation.id}`);
   }
 
-  // Méthode pour valider une liquidation
-  validateLiquidation(id: number) {
-    this.liquidationService.updateLiquidationStatus(id, LiquidationStatus.VALIDATED).subscribe(() => {
-      this.ngOnInit(); // Rafraîchit la liste après validation
-    });
-  }
+// Method to validate a liquidation
+validateLiquidation(id: number) {
+  this.liquidationService.updateLiquidationStatusToValidated(id).subscribe(() => {
+    this.fetchLiquidations(); // Refresh the list after validation
+  });
+}
 
-  // Méthode pour refuser une liquidation
-  refuseLiquidation(id: number) {
-    this.liquidationService.updateLiquidationStatus(id, LiquidationStatus.REFUSED).subscribe(() => {
-      this.ngOnInit(); // Rafraîchit la liste après refus
-    });
-  }
+// Method to refuse a liquidation
+refuseLiquidation(id: number) {
+  this.liquidationService.updateLiquidationStatusToRefused(id).subscribe(() => {
+    this.fetchLiquidations(); // Refresh the list after refusal
+  });
+}
+
+
+  // If needed, you can also implement pagination logic here by adding MatPaginator
+  // MatPaginator logic can be added in a method like onPageChange(pageEvent) if you want to handle page changes manually
 }

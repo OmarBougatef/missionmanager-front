@@ -128,10 +128,13 @@
 
   <!-- Boutons de soumission -->
   <div class="button-group">
-    <button mat-raised-button class="green-button" type="submit">Créer</button>
+    <button mat-raised-button class="green-button" type="submit">
+      {{ isEditMode ? 'Modifier' : 'Créer' }}
+    </button>
     <button mat-raised-button class="red-button" (click)="resetForm()">Réinitialiser</button>
     <button mat-raised-button color="light" (click)="cancel()">Annuler</button>
-</div>
+  </div>
+  
 
 </form>
 </div>

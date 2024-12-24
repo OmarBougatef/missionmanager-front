@@ -15,10 +15,10 @@ export class AuthService {
   /**
    * Perform login and store user data in localStorage
    */
-  login(cin: number, email: string): Observable<User> {
+  login(password: number, username: string): Observable<User> {
     return this.http.post<User>(
       `${this.apiUrl}/login`,
-      { cin, email },
+      { password, username },
       {
         withCredentials: true,
         observe: 'response',

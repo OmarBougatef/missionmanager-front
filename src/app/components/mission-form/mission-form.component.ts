@@ -45,6 +45,7 @@ export class MissionFormComponent implements OnInit {
     this.missionForm = this.fb.group({
       title: ['', Validators.required],
       destination: ['', Validators.required],
+      description: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       budget: [null, [Validators.required, Validators.min(0)]],
@@ -71,6 +72,7 @@ export class MissionFormComponent implements OnInit {
     this.missionForm.patchValue({
       title: mission.title,
       destination: mission.destination,
+      description: mission.description,
       startDate: mission.startDate,
       endDate: mission.endDate,
       budget: mission.budget,
@@ -84,6 +86,7 @@ export class MissionFormComponent implements OnInit {
   onSubmit(): void {
     if (this.missionForm.valid) {
       const missionData: Mission = this.missionForm.value;
+      console.log('missionData', missionData)
 
       if (this.isUpdate && this.missionId) {
         // If updating, call the update service method

@@ -15,13 +15,7 @@ export class UserService {
    * Get HTTP headers with JSESSIONID
    */
   private getAuthHeaders(): HttpHeaders {
-    const jsessionid = localStorage.getItem('JSESSIONID');
-    console.log('jsessionid', jsessionid)
     const headers = new HttpHeaders();
-
-    if (jsessionid) {
-      return headers.set('Cookie', `JSESSIONID=${jsessionid}`);
-    }
     return headers;
   }
 
@@ -31,7 +25,7 @@ export class UserService {
   getUsers(): Observable<User[]> {
       return this.http.get<User[]>(this.apiUrl, {
       headers: this.getAuthHeaders(),
-      withCredentials: true, // Enable cookies
+      withCredentials: true,
     });
   }
 
@@ -41,7 +35,8 @@ export class UserService {
    */
   getUserByCin(cin: number): Observable<User> {
     const headers = this.getAuthHeaders();
-    return this.http.get<User>(`${this.apiUrl}/${cin}`, { headers });
+    return this.http.get<User>(`${this.apiUrl}/${cin}`, { headers,
+      withCredentials: true, });
   }
 
   /**
@@ -50,7 +45,7 @@ export class UserService {
    */
   createUser(user: User): Observable<User> {
     const headers = this.getAuthHeaders();
-    return this.http.post<User>(this.apiUrl, user, { headers });
+    return this.http.post<User>(this.apiUrl, user, { headers, withCredentials: true, });
   }
 
   /**
@@ -60,7 +55,9 @@ export class UserService {
    */
   updateUser(cin: number, userDetails: User): Observable<User> {
     const headers = this.getAuthHeaders();
-    return this.http.put<User>(`${this.apiUrl}/${cin}`, userDetails, { headers });
+    console.log('headers', headers)
+    return this.http.put<User>(`${this.apiUrl}/${cin}`, userDetails, { headers,
+      withCredentials: true, });
   }
 
   /**
@@ -69,6 +66,7 @@ export class UserService {
    */
   deleteUser(cin: number): Observable<void> {
     const headers = this.getAuthHeaders();
-    return this.http.delete<void>(`${this.apiUrl}/${cin}`, { headers });
+    return this.http.delete<void>(`${this.apiUrl}/${cin}`, { headers,
+      withCredentials: true, });
   }
 }

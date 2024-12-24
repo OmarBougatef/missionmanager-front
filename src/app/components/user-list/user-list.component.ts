@@ -24,7 +24,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   ]
 })
 export class UserListComponent implements OnInit {
-  displayedColumns: string[] = ['cin', 'firstName', 'lastName', 'action'];
+  displayedColumns: string[] = ['cin', 'firstName', 'lastName','passportNumber', 'action'];
   dataSource = new MatTableDataSource<User>(); // Initialize the MatTableDataSource
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Reference to the paginator

@@ -17,6 +17,12 @@
       <td mat-cell *matCellDef="let user"> {{ user.lastName }} </td>
     </ng-container>
 
+    <ng-container matColumnDef="passportNumber">
+      <th mat-header-cell *matHeaderCellDef> Numéro de passeport </th>
+      <td mat-cell *matCellDef="let user"> {{ user.passportNumber }} </td>
+    </ng-container>
+
+
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let user">

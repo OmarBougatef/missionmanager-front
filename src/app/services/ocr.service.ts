@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OcrService {
-  private apiUrl = 'http://127.0.0.1:8080/upload';  // API endpoint for OCR processing
+  private apiUrl = 'http://127.0.0.1:8000/upload';  // API endpoint for OCR processing
 
   constructor(private http: HttpClient) {}
 

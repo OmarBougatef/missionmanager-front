@@ -38,6 +38,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 })
 export class UserFormComponent implements OnInit {
   userForm!: FormGroup;
+  isEditMode: boolean = false; // Flag to track if we are in edit mode
 
   constructor(
     private fb: FormBuilder,
@@ -59,10 +60,12 @@ export class UserFormComponent implements OnInit {
       passportIssueDate: ['', Validators.required],
       passportExpiryDate: ['', Validators.required],
     });
+
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       const user: User = navigation.extras.state['user'];
       this.prefillForm(user);
+      this.isEditMode = true; // Set edit mode to true if a user is passed
     }
   }
 
@@ -87,24 +90,40 @@ export class UserFormComponent implements OnInit {
 
   onSubmit() {
     if (this.userForm.valid) {
-      const newUser: User = this.userForm.value;
-      this.userService.createUser(newUser).subscribe({
-        next: (response) => {
-          this.snackBar.open('Utilisateur créé avec succès!', 'Fermer', { duration: 3000 });
-          this.router.navigate(['/users/list']); // Redirection vers la liste des utilisateurs
-        },
-        error: (error) => {
-          this.snackBar.open('Erreur lors de la création de l\'utilisateur.', 'Fermer', { duration: 3000 });
-          console.error('Erreur lors de la création de l\'utilisateur', error);
-        }
-      });
+      const user: User = this.userForm.value;
+      if (this.isEditMode) {
+        // Call update service
+        this.userService.updateUser(user.cin, user).subscribe({
+          next: () => {
+            this.snackBar.open('Utilisateur mis à jour avec succès!', 'Fermer', { duration: 3000 });
+            this.router.navigate(['/users/list']);
+          },
+          error: (error) => {
+            this.snackBar.open('Erreur lors de la mise à jour de l\'utilisateur.', 'Fermer', { duration: 3000 });
+            console.error('Erreur lors de la mise à jour de l\'utilisateur', error);
+          }
+        });
+      } else {
+        // Call create service
+        this.userService.createUser(user).subscribe({
+          next: () => {
+            this.snackBar.open('Utilisateur créé avec succès!', 'Fermer', { duration: 3000 });
+            this.router.navigate(['/users/list']);
+          },
+          error: (error) => {
+            this.snackBar.open('Erreur lors de la création de l\'utilisateur.', 'Fermer', { duration: 3000 });
+            console.error('Erreur lors de la création de l\'utilisateur', error);
+          }
+        });
+      }
     }
   }
+
   resetForm() {
     this.userForm.reset();
   }
 
   cancel() {
-    this.router.navigate(['/users/list']); // Redirect to user list page
+    this.router.navigate(['/users/list']);
   }
 }
